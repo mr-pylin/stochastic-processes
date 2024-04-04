@@ -28,9 +28,9 @@ n = 10
 s = 10000
 
 # sampling
-normal = np.random.normal(loc= 0, scale= 1, size= (n, s))
-exponential = np.random.exponential(scale= 1, size= (n, s))
-uniform = np.random.uniform(low= 0, high= 10, size= (n, s))
+normal = np.random.normal(loc= mu_normal, scale= std_normal, size= (n, s))
+uniform = np.random.uniform(low= low_uniform, high= high_uniform, size= (n, s))
+exponential = np.random.exponential(scale= lambda_param, size= (n, s))
 
 # mean per sample
 normal_means = normal.mean(axis= 0)
