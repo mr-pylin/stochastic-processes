@@ -10,41 +10,41 @@ time = 10000
 
 # distribution 1: at the beginning (time=0), all molecules are inside the container=0
 distribution_1 = np.zeros(shape= num_of_molecules)
-num_of_molecules_before_1 = (int(distribution_1.sum()), int(num_of_molecules - distribution_1.sum()))
+num_of_molecules_before_1 = (int(num_of_molecules - distribution_1.sum()), int(distribution_1.sum()))
 distribution_mean_per_time_1 = np.empty(shape= time)
 
 # distribution 2: at the beginning (time=0), all molecules are inside the container=1
 distribution_2 = np.ones(shape= num_of_molecules)
-num_of_molecules_before_2 = (int(distribution_2.sum()), int(num_of_molecules - distribution_2.sum()))
+num_of_molecules_before_2 = (int(num_of_molecules - distribution_2.sum()), int(distribution_2.sum()))
 distribution_mean_per_time_2 = np.empty(shape= time)
 
 # distribution 3: at the beginning (time=0), molecules are spread into two containers by 50/50 chance
 distribution_3 = np.zeros(shape= num_of_molecules)
 distribution_3[: num_of_molecules // 2] = 1
-num_of_molecules_before_3 = (int(distribution_3.sum()), int(num_of_molecules - distribution_3.sum()))
+num_of_molecules_before_3 = (int(num_of_molecules - distribution_3.sum()), int(distribution_3.sum()))
 distribution_mean_per_time_3 = np.empty(shape= time)
-
-
-# index
-index = np.arange(num_of_molecules)
                   
 # change the state in each time lapse
 for i in range(time):
-    random_molecule_index = np.random.choice(num_of_molecules)
 
     # modify distributions
-    distribution_1[random_molecule_index] = 1 - distribution_1[random_molecule_index]
-    distribution_2[random_molecule_index] = 1 - distribution_2[random_molecule_index]
-    distribution_3[random_molecule_index] = 1 - distribution_3[random_molecule_index]
+    random_molecule_index_1 = np.random.choice(num_of_molecules)
+    distribution_1[random_molecule_index_1] = 1 - distribution_1[random_molecule_index_1]
+
+    random_molecule_index_2 = np.random.choice(num_of_molecules)
+    distribution_2[random_molecule_index_2] = 1 - distribution_2[random_molecule_index_2]
+    
+    random_molecule_index_3 = np.random.choice(num_of_molecules)
+    distribution_3[random_molecule_index_3] = 1 - distribution_3[random_molecule_index_3]
 
     # compute new mean for time=i
     distribution_mean_per_time_1[i] = np.mean(distribution_1)
     distribution_mean_per_time_2[i] = np.mean(distribution_2)
     distribution_mean_per_time_3[i] = np.mean(distribution_3)
 
-num_of_molecules_after_1 = (int(distribution_1.sum()), int(num_of_molecules - distribution_1.sum()))
-num_of_molecules_after_2 = (int(distribution_2.sum()), int(num_of_molecules - distribution_2.sum()))
-num_of_molecules_after_3 = (int(distribution_3.sum()), int(num_of_molecules - distribution_3.sum()))
+num_of_molecules_after_1 = (int(num_of_molecules - distribution_1.sum()), int(distribution_1.sum()))
+num_of_molecules_after_2 = (int(num_of_molecules - distribution_2.sum()), int(distribution_2.sum()))
+num_of_molecules_after_3 = (int(num_of_molecules - distribution_3.sum()), int(distribution_3.sum()))
 
 # plot
 def show_container(i, j, **kwargs):
