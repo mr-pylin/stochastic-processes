@@ -1,3 +1,5 @@
+# more details about "Markov chain": https://en.wikipedia.org/wiki/Markov_chain
+
 # There is a mouse in the house! The mouse moves in such a way that in each room,
 # it chooses one of the adjacent rooms (each with the same probability) and runs there
 # (the movements occur at times n = 1, 2, ...). 
