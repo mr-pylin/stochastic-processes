@@ -19,10 +19,10 @@ num_games = 10
 input_money = 5    # 5$
 num_participants_per_game = 100
 
-profit_per_bet = 1 # 1$
+profit_per_bet = 0 # 0$
 coeff = (input_money - profit_per_bet) / input_money
 
-num_tests = 10000
+num_tests = 50000
 earned_money_per_test = np.zeros(shape= num_tests)
 avg_earned_money_per_test = np.zeros(shape= num_tests)
 
@@ -66,10 +66,12 @@ for i in range(num_tests):
     avg_earned_money_per_test[i] = earned_money_per_test[:i+1].mean()
 
     # plot
-    # ax.clear()
-    # ax.plot(range(i+1), avg_earned_money_per_test[:i+1])
-    # ax.axhline(0, color='green', linewidth= 1)
-    # plt.pause(1e-9)
+    if (i+1) % 200 == 0:
+        ax.clear()
+        ax.plot(range(i+1), avg_earned_money_per_test[:i+1] / (num_games * num_participants_per_game))
+        ax.axhline(profit_per_bet, color= 'green', linewidth= 1)
+        ax.set_title(f"profit/loss per bet: {earned_money_per_test[:i+1].sum() / (num_games * num_participants_per_game * (i+1)):.3f} $")
+        plt.pause(1e-9)
 
 # log
 print(f"Winning gamblers: {winners}/{num_participants_per_game * num_games * num_tests}")
@@ -80,4 +82,4 @@ print(f"Lost money          : {num_games * num_participants_per_game * num_tests
 print(f"Profit/Loss         : {earned_money_per_test.sum()} $")
 print(f"Profit/Loss per bet : {earned_money_per_test.sum() / (num_games * num_participants_per_game * num_tests)} $")
 
-# plt.show()
+plt.show()
