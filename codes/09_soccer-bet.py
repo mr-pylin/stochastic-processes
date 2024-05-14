@@ -3,14 +3,13 @@
 # 2. odds are fixed
 # 3. entrance per user: 5$
 
-# Note: odds are computed as (1 / prior_probabilities)
-
-# Example:
-# prior = [.4, .4, .2]
-# number of bets on each state = [40, 40, 20]
-# winners are those who have bet on [1, 0, 0]
-# so .4 * 2.5 * 5 * coeff = 400 (instead of 500 which means 1$ profit per bet)
-# coeff = 4/5
+# prior = [a, b, c]
+# odds  = 1 / prior    = [1/a, 1/b, 1/c]
+# consider a variable "input_money"     denoted as p
+# consider a variable "profit_per_bet"  denoted as n
+# consider a variable "coeff"           denoted as m
+# we have    : a * (1/a) * (p * m) + b * (1/b) * (p * m) + c * (1/c) * (p * m) = 3 * (p - n)
+# simplified : 3 * p * m = 3 * (p - n)    ->    m = (p - n) / p
 
 import matplotlib.pyplot as plt
 import numpy as np
