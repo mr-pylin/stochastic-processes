@@ -9,13 +9,14 @@
 #    The game can be started with different win rates.
 
 # dependencies
-import numpy as np
 from collections import defaultdict
+
 import matplotlib.pyplot as plt
+import numpy as np
 
 # set wealth & luck for both gamblers
 stats = {
-    'A': {'wealth': 50          , 'win_rate': float(input("Gambler A's win rate (e.g. 0.5): "))},
+    'A': {'wealth': 50, 'win_rate': float(input("Gambler A's win rate (e.g. 0.5): "))},
     'B': {'wealth': float('inf'), 'win_rate': float(input("Gambler B's win rate (e.g. 0.5): "))},
 }
 
@@ -32,7 +33,7 @@ if stats['A']['win_rate'] + stats['B']['win_rate'] != 1:
 fee = 1
 
 # create a subplot
-fig, ax = plt.subplots(layout= 'compressed')
+fig, ax = plt.subplots(layout='compressed')
 
 # This match ends when a gambler becomes bankrupt
 counter = 0
@@ -44,7 +45,7 @@ while stats['A']['wealth'] > 0 and stats['B']['wealth'] > 0:
     stats['B']['wealth'] -= fee
 
     # win
-    winner = np.random.choice(('A', 'B'), p= (stats['A']['win_rate'], stats['B']['win_rate']))
+    winner = np.random.choice(('A', 'B'), p=(stats['A']['win_rate'], stats['B']['win_rate']))
     stats[winner]['wealth'] += 2 * fee
 
     # capture gambler A's current wealth
@@ -56,7 +57,7 @@ while stats['A']['wealth'] > 0 and stats['B']['wealth'] > 0:
     if counter % 10 == 0:
         ax.clear()
         ax.bar(gambler_A.keys(), gambler_A.values())
-        ax.axvline(0, color= 'red', linewidth= 2)
+        ax.axvline(0, color='red', linewidth=2)
         ax.set_title(f"#match: {counter} | wealths: [A:{stats['A']['wealth']}, B:{stats['B']['wealth']}] | win rates: [A:{stats['A']['win_rate']}, B:{stats['B']['win_rate']}]")
         plt.pause(1e-9)
 
